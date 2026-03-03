@@ -1,7 +1,10 @@
 function getRequiredEnvVar(name: string): string {
   const value = process.env[name];
   if (!value) {
-    throw new Error(`Missing required environment variable: ${name}`);
+    // Log warning instead of throwing to avoid crashing the entire app
+    // during build or in contexts where env vars are injected later
+    console.error(`[env] Missing required environment variable: ${name}`);
+    return "";
   }
   return value;
 }

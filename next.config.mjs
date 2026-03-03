@@ -9,8 +9,10 @@ const withMDX = createMDX({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "standalone",
   pageExtensions: ["ts", "tsx", "md", "mdx"],
+  experimental: {
+    serverComponentsExternalPackages: ["@prisma/client", "prisma"],
+  },
   images: {
     remotePatterns: [
       {
