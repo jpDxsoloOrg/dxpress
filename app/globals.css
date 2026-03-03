@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-white text-neutral-900 antialiased dark:bg-neutral-950 dark:text-neutral-100;
+  }
+}
+
+/* Rehype Pretty Code - Syntax Highlighting */
+[data-rehype-pretty-code-figure] pre {
+  @apply overflow-x-auto rounded-lg text-sm leading-relaxed;
+}
+
+[data-rehype-pretty-code-figure] code {
+  @apply grid;
+  counter-reset: line;
+}
+
+[data-rehype-pretty-code-figure] code > [data-line] {
+  @apply border-l-2 border-transparent px-4 py-0;
+}
+
+[data-rehype-pretty-code-figure] code > [data-highlighted-line] {
+  @apply border-l-2 border-accent-500 bg-accent-500/10;
+}
+
+[data-rehype-pretty-code-figure] [data-line-numbers] > [data-line]::before {
+  counter-increment: line;
+  content: counter(line);
+  @apply mr-4 inline-block w-4 text-right text-neutral-400;
+}
+
+[data-rehype-pretty-code-figure] [data-highlighted-chars] {
+  @apply rounded bg-accent-500/20 px-1 py-0.5;
+}
+
+/* Theme-specific code block backgrounds */
+[data-theme="light"],
+html:not(.dark) [data-rehype-pretty-code-figure] pre {
+  @apply bg-neutral-50;
+}
+
+[data-theme="dark"],
+html.dark [data-rehype-pretty-code-figure] pre {
+  @apply bg-neutral-900;
+}
+
+/* Anchor link styling */
+.anchor-link {
+  @apply no-underline;
+}
+
+.anchor-link:hover {
+  @apply underline;
+}
+
+/* Print styles for resume */
+@media print {
+  header,
+  footer,
+  .print\\:hidden {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 11pt;
+  }
+
+  .resume-content {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+
+  a {
+    color: black !important;
+    text-decoration: none !important;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+    color: black !important;
+  }
+
+  p, li {
+    orphans: 3;
+    widows: 3;
+  }
+
+  @page {
+    margin: 1.5cm;
+  }
+}
