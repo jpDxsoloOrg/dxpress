@@ -22,7 +22,7 @@ const nextConfig = {
     S3_REGION: process.env.S3_REGION,
     S3_ACCESS_KEY: process.env.S3_ACCESS_KEY,
     S3_SECRET_KEY: process.env.S3_SECRET_KEY,
-    S3_ENDPOINT: process.env.S3_ENDPOINT,
+    ...(process.env.S3_ENDPOINT ? { S3_ENDPOINT: process.env.S3_ENDPOINT } : {}),
   },
   images: {
     remotePatterns: [

@@ -10,6 +10,8 @@ import {
 import { prisma } from "@/lib/prisma";
 import { formatDate } from "@/lib/utils";
 
+export const dynamic = "force-dynamic";
+
 async function getStats() {
   const [totalPosts, publishedPosts, draftPosts, totalProjects, recentPosts] =
     await Promise.all([

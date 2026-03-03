@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { PostForm } from "@/components/admin/PostForm";
 
+export const dynamic = "force-dynamic";
+
 interface EditPostPageProps {
   params: Promise<{ id: string }>;
 }

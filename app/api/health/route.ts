@@ -31,5 +31,12 @@ export async function GET() {
     checks.users = `error: ${message}`;
   }
 
+  // Check S3 config
+  checks.S3_BUCKET = process.env.S3_BUCKET ?? "MISSING";
+  checks.S3_REGION = process.env.S3_REGION ?? "MISSING";
+  checks.S3_ACCESS_KEY = process.env.S3_ACCESS_KEY ? "set" : "MISSING";
+  checks.S3_SECRET_KEY = process.env.S3_SECRET_KEY ? "set" : "MISSING";
+  checks.S3_ENDPOINT = process.env.S3_ENDPOINT ?? "not set (using AWS default)";
+
   return NextResponse.json(checks);
 }

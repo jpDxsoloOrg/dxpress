@@ -65,13 +65,21 @@ export async function POST(request: NextRequest) {
     ContentType: contentType,
   });
 
-  const presignedUrl = await getSignedUrl(s3, command, { expiresIn: 300 });
+  try {
+    const presignedUrl = await getSignedUrl(s3, command, { expiresIn: 300 });
 
-  // Build public URL
-  const endpoint = process.env.S3_ENDPOINT;
-  const publicUrl = endpoint
-    ? `${endpoint}/${bucket}/${key}`
-    : `https://${bucket}.s3.${process.env.S3_REGION || "us-east-1"}.amazonaws.com/${key}`;
+    // Build public URL
+    const endpoint = process.env.S3_ENDPOINT;
+    const publicUrl = endpoint
+      ? `${endpoint}/${bucket}/${key}`
+      : `https://${bucket}.s3.${process.env.S3_REGION || "us-east-1"}.amazonaws.com/${key}`;
 
-  return NextResponse.json({ presignedUrl, publicUrl, key });
+    return NextResponse.json({ presignedUrl, publicUrl, key });
+  } catch (err) {
+    console.error("S3 presigned URL error:", err);
+    return NextResponse.json(
+      { error: `S3 error: ${err instanceof Error ? err.message : "Unknown"}` },
+      { status: 500 }
+    );
+  }
 }

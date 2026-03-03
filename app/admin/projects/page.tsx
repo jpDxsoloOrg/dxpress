@@ -3,6 +3,8 @@ import { Plus, Star } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { ProjectActions } from "./ProjectActions";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminProjectsPage() {
   const projects = await prisma.project.findMany({
     orderBy: [{ featured: "desc" }, { sortOrder: "asc" }, { createdAt: "desc" }],
