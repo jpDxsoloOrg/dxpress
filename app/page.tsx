@@ -30,11 +30,19 @@ const skillCategories = [
 ];
 
 export default async function HomePage() {
-  const [config, recentPosts, featuredProjects] = await Promise.all([
-    getSiteConfig(),
-    getRecentPosts(3),
-    getFeaturedProjects(4),
-  ]);
+  let config: Awaited<ReturnType<typeof getSiteConfig>> = null;
+  let recentPosts: Awaited<ReturnType<typeof getRecentPosts>> = [];
+  let featuredProjects: Awaited<ReturnType<typeof getFeaturedProjects>> = [];
+
+  try {
+    [config, recentPosts, featuredProjects] = await Promise.all([
+      getSiteConfig(),
+      getRecentPosts(3),
+      getFeaturedProjects(4),
+    ]);
+  } catch {
+    // Database may be waking up (cold start) — render with defaults
+  }
 
   const ownerName = config?.ownerName ?? "Developer";
   const ownerTitle = config?.ownerTitle ?? "Full-Stack Developer";
