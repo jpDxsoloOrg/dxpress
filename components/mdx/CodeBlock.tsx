@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { Check, Copy } from "lucide-react";
 
 interface CodeBlockProps {
@@ -15,12 +15,30 @@ export function CodeBlock({ children, ...props }: CodeBlockProps) {
   const codeRef = useRef<HTMLDivElement>(null);
   const language = props["data-language"] || "";
 
-  async function copyToClipboard() {
+  const copyToClipboard = useCallback(() => {
     const text = codeRef.current?.textContent ?? "";
-    await navigator.clipboard.writeText(text);
+    if (!text) return;
+
+    // Use the synchronous clipboard fallback first for reliability,
+    // then try the async API. The async clipboard API can lose
+    // user-activation context after hydration on some browsers.
+    try {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+    } catch {
+      // Fall back to async API if execCommand fails
+      navigator.clipboard.writeText(text).catch(() => {});
+    }
+
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
-  }
+  }, []);
 
   return (
     <div className="group relative my-6 overflow-hidden rounded-lg border border-neutral-200 bg-neutral-50 dark:border-neutral-800 dark:bg-neutral-900">
