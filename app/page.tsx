@@ -63,10 +63,10 @@ export default async function HomePage() {
       <section className="border-b border-neutral-200 dark:border-neutral-800">
         <Container className="py-20 sm:py-28">
           <div className="max-w-2xl">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-accent-200 bg-accent-50 px-3 py-1 text-sm text-accent-700 dark:border-accent-800 dark:bg-accent-950 dark:text-accent-300">
+            {/* <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-accent-200 bg-accent-50 px-3 py-1 text-sm text-accent-700 dark:border-accent-800 dark:bg-accent-950 dark:text-accent-300">
               <span className="h-2 w-2 rounded-full bg-green-500" />
               Available for new opportunities
-            </div>
+            </div> */}
             <h1 className="text-4xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-5xl lg:text-6xl">
               {ownerName}
             </h1>
@@ -200,10 +200,10 @@ export default async function HomePage() {
             <h2 className="text-2xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-3xl">
               Let&apos;s work together
             </h2>
-            <p className="mx-auto mt-4 max-w-lg text-neutral-600 dark:text-neutral-400">
+            {/* <p className="mx-auto mt-4 max-w-lg text-neutral-600 dark:text-neutral-400">
               I&apos;m always interested in hearing about new projects and
               opportunities. Feel free to reach out.
-            </p>
+            </p> */}
             <div className="mt-8 flex justify-center gap-4">
               <SocialIcon
                 href={config?.githubUrl ?? "#"}
